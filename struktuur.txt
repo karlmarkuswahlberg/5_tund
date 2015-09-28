@@ -5,3 +5,7 @@ login							create
 functions.php/ logInUser		createUser
 	|								|
 	AB (DB)							AB(DB)
+	
+	
+	
+kõik algne on data.php ja funktsioonid tulevad functions.php.

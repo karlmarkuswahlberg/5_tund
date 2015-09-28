@@ -15,7 +15,7 @@
 	$m = "";
 	$car_plate = $color = "";
 	$car_plate_error = $color_error = "";
-	echo $_SESSION['logged_in_user_id'];
+	
 	//lisada kasutaja id, numbrilaud ja värv.
 	
 	//kontrollime välju.
@@ -58,6 +58,12 @@
   	$data = htmlspecialchars($data);
   	return $data;
   }
+  
+  //küsime tabeli kujul andmed. kõige lõpus seepärast, et see on kõige viimasem versioon.
+  getAllData();
+  
+	
+  
 ?>
 
 Tere, <?=$_SESSION['logged_in_user_email'];?> <a href="?logout=1">Logi välja!</a>
