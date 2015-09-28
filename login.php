@@ -4,6 +4,12 @@
 	
 	require_once("functions.php");
 	
+	//kui kasutaja on sisselogitu, suuna teisele lehele. Ei saaks logituna minna tagasi login lehele.
+	//kontrollin kas sessioonimuutuja on olemas? 
+	if(isset($_SESSION['logged_in_user_id'])){
+		header("Location: data.php");
+	}
+	
     
   // muuutujad errorite jaoks
 	$email_error = "";
@@ -74,6 +80,10 @@
                 
             }
         } // create if end
+		
+		
+
+		
 	}
   // funktsioon, mis eemaldab kõikvõimaliku üleliigse tekstist
   function cleanInput($data) {
