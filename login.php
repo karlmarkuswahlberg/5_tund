@@ -1,13 +1,10 @@
 <?php
-    //loome AB ühenduse
-    require_once("../config.php");
-    $database = "if15_romil_1";
-    $mysqli = new mysqli($servername, $username, $password, $database);
+
+	//selleks, et functions.php ühendatud oleks.
+	
+	require_once("functions.php");
+	
     
-    //check connection
-    if($mysqli->connect_error) {
-        die("connect error ".mysqli_connect_error());
-    }
   // muuutujad errorite jaoks
 	$email_error = "";
 	$password_error = "";
@@ -36,28 +33,11 @@
 			}
       // Kui oleme siia jõudnud, võime kasutaja sisse logida
 			if($password_error == "" && $email_error == ""){
-				echo "Võib sisse logida! Kasutajanimi on ".$email." ja parool on ".$password;
+				//echo "Võib sisse logida! Kasutajanimi on ".$email." ja parool on ".$password;
 			
                 $hash = hash("sha512", $password);
                 
-                $stmt = $mysqli->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");
-                // küsimärkide asendus
-                $stmt->bind_param("ss", $email, $hash);
-                //ab tulnud muutujad
-                $stmt->bind_result($id_from_db, $email_from_db);
-                $stmt->execute();
-                
-                // teeb päringu ja kui on tõene (st et ab oli see väärtus)
-                if($stmt->fetch()){
-                    
-                    // Kasutaja email ja parool õiged
-                    echo "Kasutaja logis sisse id=".$id_from_db;
-                    
-                }else{
-                    echo "Wrong credentials!";
-                }
-                
-                $stmt->close();
+                logInUser($email, $hash);
                 
             
             
@@ -83,13 +63,13 @@
 			}
 			if(	$create_email_error == "" && $create_password_error == ""){
 				echo hash("sha512", $create_password);
-                echo "Võib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password;
+                //echo "Võib kasutajat luua! Kasutajanimi on ".$create_email." ja parool on ".$create_password;
                 
                 // tekitan parooliräsi
                 $hash = hash("sha512", $create_password);
                 
                 //salvestan andmebaasi
-               createUser(); //see on edasi functions.php failis
+               createUser($create_email, $hash); //see on edasi functions.php failis, kuhu siit saadetakse create_email ja hash. 
                 
                 
             }
@@ -103,9 +83,9 @@
   	return $data;
   }
    
-  
+ 
   // paneme ühenduse kinni
-  $mysqli->close();
+ 
   
 ?>
 <!DOCTYPE html>

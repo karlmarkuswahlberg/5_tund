@@ -1,0 +1,7 @@
+login.php
+-------------------
+login							create
+  |									|
+functions.php/ logInUser		createUser
+	|								|
+	AB (DB)							AB(DB)
